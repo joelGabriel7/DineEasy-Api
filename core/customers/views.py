@@ -53,6 +53,23 @@ class UserProfileView(RetrieveUpdateAPIView):
 
 
 @extend_schema(tags=['Customers'])
+class CustomerUserListView(ListAPIView):
+    queryset = CustomerUser.objects.filter(groups__name__icontains='customer')
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication, SessionAuthentication]
+    filter_backends = [SearchFilter]
+    search_fields = ['username', 'email', 'first_name', 'last_name']
+
+    @extend_schema(
+        summary="Listar Usuarios que son clientes",
+        description="Obtiene una lista de todos los usuarios registrados que sean clientes. Permite búsqueda por username, email, nombre y apellido.",
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+
+@extend_schema(tags=['Customers'])
 class UserListView(ListAPIView):
     queryset = CustomerUser.objects.all()
     serializer_class = UserProfileSerializer
