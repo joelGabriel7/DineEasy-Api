@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'django_filters',
     #apps
-    'core.restaurant'
+    'core.restaurant',
+    "core.customers"
 
 ]
 
@@ -120,6 +121,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
 
+# AUTH_USER_MODEL
+AUTH_USER_MODEL = 'customers.CustomerUser'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -154,6 +158,7 @@ SPECTACULAR_SETTINGS = {
     'TAGS': [
         {'name': 'Restaurantes', 'description': 'Operaciones relacionadas con restaurantes'},
         {'name': 'Mesas', 'description': 'Operaciones relacionadas el manejo de las mesas para los restaurantes'},
+        {'name': 'Customers', 'description': 'Operaciones relacionadas el manejo de clientes para los restaurantes'},
         # Añade más tags según sea necesario
     ],
     'CONTACT': {

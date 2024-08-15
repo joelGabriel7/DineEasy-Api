@@ -72,11 +72,25 @@ class TableByRestaurant(GenericAPIView):
         summary="Obtener una Mesa por restaurante",
         description="Obtiene los detalles de una Mesa específico por restaurantes",
     )
+    # def get(self, request, pk):
+    #     restaurant = get_object_or_404(Restaurant, pk=pk)
+    #     tables = restaurant.tables.select_related('restaurant').all()
+    #     serializer = self.get_serializer(tables, many=True)
+    #     data = {
+    #         'count': tables.count(),
+    #         "tables": serializer.data
+    #     }
+    #     return Response(data)
+
     def get(self, request, pk):
         restaurant = get_object_or_404(Restaurant, pk=pk)
         tables = self.get_queryset().filter(restaurant=restaurant)
         serializer = self.get_serializer(tables, many=True)
-        return Response(serializer.data)
+        data = {
+            'total_tables': tables.count(),
+            "tables": serializer.data
+        }
+        return Response(data)
 
 
 @extend_schema(tags=['Mesas'])

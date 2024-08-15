@@ -9,14 +9,11 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
+
 def validate_rnc(value):
     if len(value) != 9 and len(value) != 11:
         raise ValidationError("El RNC debe tener 9 u 11 dígitos.")
 
-
-# class RestaurantManager(models.Manager):
-#         def get_queryset(self):
-#             return super().get_queryset().filter()
 
 class Restaurant(models.Model):
     STATUS_CHOICES = [
