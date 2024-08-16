@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'django_filters',
     #apps
     'core.restaurant',
-    "core.customers"
+    "core.customers",
+    "core.reservations"
 
 ]
 
