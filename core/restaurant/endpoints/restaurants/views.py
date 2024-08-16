@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from core.restaurant.models import Restaurant
@@ -15,7 +15,7 @@ from core.utilis import *
 class RestaurantListAPIView(ListCreateAPIView):
     queryset = Restaurant.objects.all().order_by('id')
     serializer_class = RestaurantSerializers
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     authentication_classes = [TokenAuthentication]
     filter_backends = [SearchFilter]
     search_fields = ['rnc', 'name', 'email', 'phone']
