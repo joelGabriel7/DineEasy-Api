@@ -10,6 +10,7 @@ urlpatterns = [
     path('api-token-auth/', views.obtain_auth_token),
     path('api/', include('core.restaurant.urls')),
     path('api/', include('core.customers.urls')),
+    path('api/', include('core.reservations.urls')),
 
     #   Docs api
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

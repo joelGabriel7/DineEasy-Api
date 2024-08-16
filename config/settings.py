@@ -160,6 +160,7 @@ SPECTACULAR_SETTINGS = {
         {'name': 'Restaurantes', 'description': 'Operaciones relacionadas con restaurantes'},
         {'name': 'Mesas', 'description': 'Operaciones relacionadas el manejo de las mesas para los restaurantes'},
         {'name': 'Customers', 'description': 'Operaciones relacionadas el manejo de clientes para los restaurantes'},
+        {'name': 'Reservations', 'description': 'Manejo de Reservas'},
         # Añade más tags según sea necesario
     ],
     'CONTACT': {

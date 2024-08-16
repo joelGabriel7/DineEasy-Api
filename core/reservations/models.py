@@ -30,6 +30,9 @@ class Reservation(models.Model):
         item['restaurant'] = self.restaurant.toJSON()
         return item
 
+    def __str__(self):
+        return self.toJSON()['date']
+
     class Meta:
         verbose_name = 'Reservacion'
         verbose_name_plural = 'Reservaciones'
