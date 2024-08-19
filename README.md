@@ -113,8 +113,9 @@ Siga estos pasos para configurar el proyecto en su entorno local:
    - Si desea usar PostgreSQL o MySQL,
    - deberá modificar la configuración de la base de datos en `settings.py`.
 
-5. **Aplicar las migraciones**:
+5. **Crear y aplicar las migraciones**:
    ```
+   python manage.py makemigrations
    python manage.py migrate
    ```
 
@@ -128,7 +129,7 @@ Siga estos pasos para configurar el proyecto en su entorno local:
    python manage.py runserver
    ```
 
-La API ahora debería estar disponible en `http://localhost:8000/api/`.
+La API ahora debería estar disponible en `http://localhost:8000/api/docs/`.
 
 ## Configuración Adicional (Próximamente)
 
