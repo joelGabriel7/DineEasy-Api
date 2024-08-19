@@ -2,11 +2,12 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, GenericAPIView,  get_object_or_404
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from core.reservations.models import *
+
 from core.reservations.serializers import *
+from core.restaurant.models import Restaurant
 from core.utilis import LargeResultsSetPagination
 
 
@@ -34,6 +35,29 @@ class ReservationListAPIView(ListCreateAPIView):
 
 
 @extend_schema(tags=['Reservations'])
+class GetReservationRestaurant(GenericAPIView):
+    queryset = Reservation.objects.all().order_by('id')
+    serializer_class = ResevationsByRestaurantsSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    pagination_class = LargeResultsSetPagination
+
+    @extend_schema(
+        summary="Lista las Reservaciones por restaurante",
+        description="Obtiene una lista de todas las reservaciones por el status que se ingreso",
+    )
+    def get(self, request, restaurant_id):
+        restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
+        reservations = self.get_queryset().filter(restaurant=restaurant)
+        serializer = self.get_serializer(reservations, many=True)
+        data = {
+            'total_reservations': reservations.count(),
+            "reservations": serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
+
+
+@extend_schema(tags=['Reservations'])
 class GetReservationStatus(ListAPIView):
     queryset = Reservation.objects.all().order_by('id')
     serializer_class = ReservationSerializer
@@ -51,7 +75,8 @@ class GetReservationStatus(ListAPIView):
         term = self.request.query_params.get('search', '')
         reservation = self.get_queryset().filter(status=term)
         if not reservation:
-            return Response({"message": f"No se encontraron reservaciones con el status '{term}'"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message": f"No se encontraron reservaciones con el status '{term}'"},
+                            status=status.HTTP_404_NOT_FOUND)
         return super().get(request, *args, **kwargs)
 
 

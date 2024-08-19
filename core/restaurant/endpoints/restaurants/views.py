@@ -2,10 +2,12 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
+from core.reservations.models import Reservation
+from core.reservations.serializers import ResevationsByRestaurantsSerializer
 from core.restaurant.models import Restaurant
 from core.restaurant.serializers import RestaurantSerializers
 from core.utilis import *
@@ -44,6 +46,31 @@ class RestaurantListAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+@extend_schema(tags=['Restaurantes'])
+class GetReservationRestaurant(GenericAPIView):
+    queryset = Reservation.objects.all().order_by('id')
+    serializer_class = ResevationsByRestaurantsSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+    pagination_class = LargeResultsSetPagination
+
+    @extend_schema(
+        summary="Lista las Reservaciones por restaurante",
+        description="Obtiene una lista de todas las reservaciones por el status que se ingreso",
+    )
+    def get(self, request, restaurant_id):
+        restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
+        reservations = self.get_queryset().filter(restaurant=restaurant)
+        if not reservations:
+            return Response({"message": "No reservatios founds"}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(reservations, many=True)
+        data = {
+            'total_reservations': reservations.count(),
+            "reservations": serializer.data
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 @extend_schema(tags=['Restaurantes'])
