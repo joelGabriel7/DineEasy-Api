@@ -81,3 +81,59 @@ La API estará disponible para acceder a la documentación interactiva de Swagge
 - `GET, POST /api/reservations/`: Lista todas las reservaciones y permite crear nuevas
 - `GET, PUT, DELETE /api/reservations/<int:pk>/`: Operaciones CRUD para una reservación específica
 - `GET /api/reservations/status/`: Obtiene reservaciones filtradas por estado
+
+# API de Reservaciones de Restaurantes
+
+[Las secciones anteriores se mantienen igual]
+
+## Instalación y Configuración
+
+Siga estos pasos para configurar el proyecto en su entorno local:
+
+1. **Clonar o Descargar el repositorio**:
+   ```
+   git clone [URL del repositorio]
+   cd [nombre del directorio]
+   ```
+
+2. **Crear y activar un entorno virtual**:
+   ```
+   python -m venv venv
+   source venv/bin/activate  
+   # En Windows para activar `venv\Scripts\activate`
+   ```
+
+3. **Instalar las dependencias**:
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. **Configurar la base de datos**:
+   - Por defecto, el proyecto está configurado para usar SQLite. 
+   - Si desea usar PostgreSQL o MySQL,
+   - deberá modificar la configuración de la base de datos en `settings.py`.
+
+5. **Aplicar las migraciones**:
+   ```
+   python manage.py migrate
+   ```
+
+6. **Crear un superusuario** (opcional, pero recomendado para acceder al panel de administración):
+   ```
+   python manage.py createsuperuser
+   ```
+
+7. **Ejecutar el servidor de desarrollo**:
+   ```
+   python manage.py runserver
+   ```
+
+La API ahora debería estar disponible en `http://localhost:8000/api/`.
+
+## Configuración Adicional (Próximamente)
+
+En futuras actualizaciones, se proporcionarán instrucciones para:
+- Configurar variables de entorno para mayor seguridad
+- Ajustar la configuración para diferentes entornos (desarrollo, producción)
+- Integrar servicios externos (si es aplicable)
+

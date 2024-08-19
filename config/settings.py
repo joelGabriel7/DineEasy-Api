@@ -5,14 +5,8 @@ from config import db
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-c##j$oyfz3q-mn1u-k@!3%bt83-&reb^!m5)nw#3g=d(i_i81&'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -20,24 +14,29 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #thirdy packeges
+]
+LOCAL_APPS = [
+    'core.restaurant',
+    "core.customers",
+    "core.reservations"
+]
+THIRD_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'drf_spectacular',
     'django_filters',
-    #apps
-    'core.restaurant',
-    "core.customers",
-    "core.reservations"
-
 ]
+
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,8 +72,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = db.SQLITE
-DATABASES = db.POSTGRESQL
+DATABASES = db.SQLITE
+
 
 
 # Password validation
