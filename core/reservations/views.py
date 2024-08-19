@@ -16,3 +16,11 @@ class ReservationListAPIView(ListCreateAPIView):
     serializer_class = ReservationSerializer
     permission_classes = [AllowAny]
     pagination_class = LargeResultsSetPagination
+
+
+@extend_schema(tags=['Reservations'])
+class ReservationDetailAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Reservation.objects.all().order_by('id')
+    serializer_class = ReservationSerializer
+    permission_classes = [AllowAny]
+    pagination_class = LargeResultsSetPagination
