@@ -9,5 +9,6 @@ urlpatterns = [
     path('get/current/user', UserProfileView.as_view(), name='current_user'),
     path('users/', UserListView.as_view(), name='all_user'),
     path('users/customers/', CustomerUserListView.as_view(), name='Customers_user'),
+    path('users/customers/<int:customer_id>/customer-summary/', GetReservationCustomers.as_view()),
 
 ]

@@ -35,29 +35,6 @@ class ReservationListAPIView(ListCreateAPIView):
 
 
 @extend_schema(tags=['Reservations'])
-class GetReservationRestaurant(GenericAPIView):
-    queryset = Reservation.objects.all().order_by('id')
-    serializer_class = ResevationsByRestaurantsSerializer
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
-    pagination_class = LargeResultsSetPagination
-
-    @extend_schema(
-        summary="Lista las Reservaciones por restaurante",
-        description="Obtiene una lista de todas las reservaciones por el status que se ingreso",
-    )
-    def get(self, request, restaurant_id):
-        restaurant = get_object_or_404(Restaurant, pk=restaurant_id)
-        reservations = self.get_queryset().filter(restaurant=restaurant)
-        serializer = self.get_serializer(reservations, many=True)
-        data = {
-            'total_reservations': reservations.count(),
-            "reservations": serializer.data
-        }
-        return Response(data, status=status.HTTP_200_OK)
-
-
-@extend_schema(tags=['Reservations'])
 class GetReservationStatus(ListAPIView):
     queryset = Reservation.objects.all().order_by('id')
     serializer_class = ReservationSerializer

@@ -163,6 +163,9 @@ SPECTACULAR_SETTINGS = {
         {'name': 'Reservations', 'description': 'Manejo de Reservas'},
         # Añade más tags según sea necesario
     ],
+    'ENUM_NAME_OVERRIDES': {
+            'ReservationStatusEnum': 'core.reservations.models.Reservation.STATUS_RESERVATIONS',
+        },
     'CONTACT': {
         'name': 'Equipo de Soporte DineEasy',
         'email': 'support@dineeasy.com',
