@@ -124,11 +124,15 @@ ipython_config.py
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
-
-*/migrations/*
-**/migrations/*
+#
+#*/migrations/*
+#**/migrations/*
 */logs/*
-
+# Ignore all files in any migrations folder
+**/migrations/**
+# But don't ignore the migrations folder itself and the __init__.py file
+!**/migrations
+!**/migrations/__init__.py
 
 
 # Celery stuff
