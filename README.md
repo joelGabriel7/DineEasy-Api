@@ -82,9 +82,6 @@ La API estará disponible para acceder a la documentación interactiva de Swagge
 - `GET, PUT, DELETE /api/reservations/<int:pk>/`: Operaciones CRUD para una reservación específica
 - `GET /api/reservations/status/`: Obtiene reservaciones filtradas por estado
 
-# API de Reservaciones de Restaurantes
-
-[Las secciones anteriores se mantienen igual]
 
 ## Instalación y Configuración
 
