@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.customers.serializer import (RegisterSerializer, UserProfileSerializer)
-from ..reservations.serializers import *
+from ..reservations.serializers import CustomerUser,Reservation, ResevationsByCustomersSerializer
 from ..utilis import LargeResultsSetPagination
 
 
